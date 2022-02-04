@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         if (savedInstanceState != null) {
             lemonadeState = savedInstanceState.getString(LEMONADE_STATE, "select")
             lemonSize = savedInstanceState.getInt(LEMON_SIZE, -1)
@@ -86,55 +85,51 @@ class MainActivity : AppCompatActivity() {
 
         when (lemonadeState) {
             SELECT -> {
-                lemonadeState = SQUEEZE
-                val tree = LemonTree()
-                lemonSize = tree.pick()
+                lemonSize = lemonTree.pick()
                 squeezeCount = 0
+                lemonadeState = SQUEEZE
             }
 
             SQUEEZE -> {
-                squeezeCount += 1
-                lemonSize -= 1
-
-                lemonadeState = if (lemonSize == 0) {
-                    DRINK
-                } else SQUEEZE
+                lemonSize--
+                squeezeCount++
+                if (lemonSize == 0) {
+                    lemonadeState = DRINK
+                    lemonSize = -1
+                }
             }
 
             DRINK -> {
-                lemonadeState = RESTART
                 lemonSize = -1
+                lemonadeState = RESTART
             }
 
-            RESTART -> lemonadeState = SELECT
+            else -> {
+                lemonadeState = SELECT
+            }
         }
+        setViewElements()
     }
 
 
     private fun setViewElements() {
         val textAction: TextView = findViewById(R.id.text_action)
-        val lemonImage: ImageView = findViewById(R.id.image_lemon_state)
-
-        when (lemonadeState) {
-            SELECT -> {
-                textAction.text = "Click to Select a Lemon"
-                lemonImage.setImageResource(R.drawable.lemon_tree)
-            }
-            SQUEEZE -> {
-                textAction.text = "Click to juice the Lemon"
-                lemonImage.setImageResource(R.drawable.lemon_tree)
-            }
-            DRINK -> {
-                textAction.text = "Click to drink your Lemonade"
-                lemonImage.setImageResource(R.drawable.lemon_tree)
-            }
-            RESTART -> {
-                textAction.text = "Click to start again!"
-                lemonImage.setImageResource(R.drawable.lemon_tree)
-            }
+        val drawableResource = when (lemonadeState) {
+            SELECT -> R.drawable.lemon_tree
+            SQUEEZE -> R.drawable.lemon_squeeze
+            DRINK -> R.drawable.lemon_drink
+            else -> R.drawable.lemon_restart
 
         }
+        val stringResource = when (lemonadeState) {
+            SELECT -> getString(R.string.lemon_select)
+            SQUEEZE -> getString(R.string.lemon_squeeze)
+            DRINK -> getString(R.string.lemon_drink)
+            else -> getString(R.string.lemon_empty_glass)
 
+        }
+        lemonImage?.setImageResource(drawableResource)
+        textAction.text = stringResource
     }
 
 
