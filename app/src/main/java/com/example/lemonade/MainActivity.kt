@@ -28,25 +28,12 @@ class MainActivity : AppCompatActivity() {
     private val LEMON_SIZE = "LEMON_SIZE"
     private val SQUEEZE_COUNT = "SQUEEZE_COUNT"
 
-    // SELECT represents the "pick lemon" state
     private val SELECT = "select"
-
-    // SQUEEZE represents the "squeeze lemon" state
     private val SQUEEZE = "squeeze"
-
-    // DRINK represents the "drink lemonade" state
     private val DRINK = "drink"
-
-    // RESTART represents the state where the lemonade has be drunk and the glass is empty
     private val RESTART = "restart"
-
-    // Default the state to select
     private var lemonadeState = "select"
-
-    // Default lemonSize to -1
     private var lemonSize = -1
-
-    // Default the squeezeCount to -1
     private var squeezeCount = -1
 
     private var lemonTree = LemonTree()
@@ -73,7 +60,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(LEMONADE_STATE, lemonadeState)
         outState.putInt(LEMON_SIZE, lemonSize)
@@ -82,7 +68,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clickLemonImage() {
-
         when (lemonadeState) {
             SELECT -> {
                 lemonSize = lemonTree.pick()
@@ -132,7 +117,6 @@ class MainActivity : AppCompatActivity() {
         textAction.text = stringResource
     }
 
-
     private fun showSnackbar(): Boolean {
         if (lemonadeState != SQUEEZE) {
             return false
@@ -146,7 +130,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 }
-
 
 class LemonTree {
     fun pick(): Int {
