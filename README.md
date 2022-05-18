@@ -26,6 +26,9 @@ Tips
 - Use the provided tests to ensure your app is running as expected
 - DO NOT ALTER THE PROVIDED TESTS
 
+ScreenShot
+----------
+
 <p align="center">
 <img width="240" alt="Screenshot_2022-03-09-10-05-29-101_com example 1" src="https://user-images.githubusercontent.com/32328761/168956036-b3f8091f-01a1-4af0-b128-8053981235d2.jpg">
   <img width="240" alt="Screenshot_2022-03-09-10-05-29-101_com example 1" src="https://user-images.githubusercontent.com/32328761/168956041-f7072a2a-8c60-4c72-83c9-d65af2b8d84b.jpg">
